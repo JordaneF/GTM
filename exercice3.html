@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- Google Tag Manager : installé par un seul fichier pour tout le site (voir gtm-install.js) -->
+<script src="gtm-install.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="team.js"></script>
+<title>Exercice 3 - Mission e-commerce</title>
+<meta name="description" content="Mission en autonomie : répondre aux questions du directeur marketing avec GTM et GA4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="shop.js" defer></script>
+</head>
+
+<body data-page="exercice3">
+
+<div class="topbar">Site d'entraînement Google Tag Manager — <strong>aucune commande réelle</strong> · Livraison offerte dès 60 € (pour de faux)</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="hello.html" class="logo"><span class="logo-mark"></span>Kop Store</a>
+    <nav class="main-nav" aria-label="Navigation principale">
+        <a href="hello.html">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="produit.html">Maillot 2026</a>
+        <a href="hello.html#formation" class="active">Formation GTM</a>
+        <a href="contact.html">Nous contacter</a>
+    </nav>
+    <div class="header-actions">
+      <a href="panier.html" class="cart-link" id="header-cart">Panier <span class="cart-count" data-count="0">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap exo-page">
+  <div class="exo-header">
+    <span class="eyebrow">Formation GTM · Série 3</span>
+    <h1>Exercice 3 — La mission</h1>
+    <p class="lead">Plus d'instructions techniques : une demande métier, comme en entreprise. À vous de trouver quoi mesurer, comment, et de prouver que ça marche. Durée : 45 minutes.</p>
+  </div>
+
+  <section class="exo mail" id="mission">
+    <div class="mail-head">
+      <div><span class="mail-label">De</span> Directeur marketing, Kop Store</div>
+      <div><span class="mail-label">À</span> L'équipe data</div>
+      <div><span class="mail-label">Objet</span> <strong>Besoin de chiffres avant le comité de lundi</strong></div>
+    </div>
+    <div class="mail-body">
+      <p>Bonjour,</p>
+      <p>J'ai besoin que vous mettiez en place le suivi de trois choses sur le site :</p>
+      <ol>
+        <li><strong>Les regrets.</strong> Quels produits les clients retirent-ils de leur panier ?</li>
+        <li><strong>Les favoris.</strong> Sur chaque fiche produit, les clients peuvent cliquer sur le cœur ♡ pour mettre un produit de côté. Combien de produits sont mis en favoris, et lesquels ?</li>
+        <li><strong>Les tailles.</strong> Je pense que nos clients hésitent sur les tailles. Combien ouvrent le guide des tailles, et sur quels produits ?</li>
+      </ol>
+      <p>Merci de me confirmer quand c'est en place, avec la preuve que ça fonctionne.</p>
+    </div>
+  </section>
+
+  <section class="exo">
+    <h2>Ce que vous devez rendre</h2>
+    <p><strong>1. Un plan de marquage, AVANT de toucher à GTM.</strong> Recopiez et remplissez ce tableau, une ligne par question :</p>
+    <div style="overflow-x:auto">
+    <table class="param-table plan">
+      <thead><tr><th>Question</th><th>Nom de l'événement</th><th>Quand se déclenche-t-il ?</th><th>Paramètres envoyés</th><th>D'où vient chaque valeur ?</th><th>Standard GA4 ou inventé ?</th></tr></thead>
+      <tbody>
+        <tr><td>1. Regrets</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2. Favoris</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3. Tailles</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p><strong>2. La mise en place :</strong> le code dans <code>mes-tags.js</code>, la configuration dans GTM, et dans GA4 si nécessaire.</p>
+  </section>
+
+  <section class="exo">
+    <h2>Coups de pouce</h2>
+    <p class="note">Chaque coup de pouce ouvert coûte un point. Ouvrez-les seulement si vous êtes bloqués.</p>
+    <details class="solution hint-box"><summary>Coup de pouce 1 — Par où commencer ?</summary>
+      <p>La liste ci-dessous donne tous les crochets de la boutique. Trouvez ceux qui correspondent aux trois questions, puis commencez chacun par un <code>console.log(data)</code> pour voir ce que la boutique vous donne.</p></details>
+    <details class="solution hint-box"><summary>Coup de pouce 2 — Quels noms d'événements ?</summary>
+      <p>Pour deux des trois questions, Google a déjà prévu un nom officiel. Cherchez « GA4 recommended events » sur internet. Un nom officiel débloque des rapports tout prêts dans GA4 ; un nom inventé oblige à tout reconstruire à la main.</p></details>
+  </section>
+
+  <section class="exo" id="crochets">
+    <h2>Les crochets de la boutique</h2>
+    <p>Pour utiliser un crochet, écrivez <code>shopHooks.nomDuCrochet = function (data) { … };</code> dans <code>mes-tags.js</code>.</p>
+    <div style="overflow-x:auto">
+    <table class="param-table">
+      <thead><tr><th>Crochet</th><th>Quand la boutique l'appelle</th><th>Contenu de <code>data</code></th></tr></thead>
+      <tbody>
+        <tr><td>viewItem</td><td>Affichage d'une fiche produit</td><td>product</td></tr>
+        <tr><td>selectSize</td><td>Clic sur une taille</td><td>product, size</td></tr>
+        <tr><td>addToCart</td><td>Ajout réussi au panier (fiche produit, ou « + » dans le panier)</td><td>product, size, quantity, flocage, unitPrice, value, currency</td></tr>
+        <tr><td>addToWishlist</td><td>Ajout aux favoris ♡</td><td>product, size</td></tr>
+        <tr><td>sizeGuideOpen</td><td>Ouverture du guide des tailles</td><td>product</td></tr>
+        <tr><td>viewItemList</td><td>Affichage d'une liste de produits</td><td>listId, listName, products</td></tr>
+        <tr><td>selectItem</td><td>Clic sur un produit d'une liste</td><td>listId, listName, product</td></tr>
+        <tr><td>viewCart</td><td>Chargement du panier (non vide)</td><td>lines, totals</td></tr>
+        <tr><td>removeFromCart</td><td>« Supprimer » ou « − » dans le panier</td><td>line, quantity (retirée), value, currency</td></tr>
+        <tr><td>couponApplied</td><td>Validation d'un code promo</td><td>coupon, valid</td></tr>
+        <tr><td>beginCheckout</td><td>Arrivée sur la page commande</td><td>lines, totals</td></tr>
+        <tr><td>addShippingInfo</td><td>« Continuer vers le paiement »</td><td>lines, totals, shippingTier</td></tr>
+        <tr><td>addPaymentInfo</td><td>« Payer »</td><td>lines, totals, paymentType</td></tr>
+        <tr><td>purchase</td><td>Affichage de la confirmation</td><td>order, firstView</td></tr>
+        <tr><td>newsletterSignup</td><td>Inscription à la newsletter (pied de page)</td><td>email, location</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note" style="margin-top:10px"><code>lines</code> = la liste des articles (chacun avec sku, name, brand, category, size, price, quantity). <code>totals</code> = subtotal, discount, coupon, shipping, total, currency.</p>
+  </section>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a href="hello.html" class="logo"><span class="logo-mark"></span>Kop Store</a>
+        <p>Boutique fictive créée pour apprendre Google Tag Manager et GA4. Tout fonctionne comme sur un vrai site… sauf le paiement.</p>
+      </div>
+      <div>
+        <h4>Boutique</h4>
+        <a href="boutique.html">Tous les produits</a>
+        <a href="produit.html">Maillot domicile 2026</a>
+        <a href="panier.html">Mon panier</a>
+      </div>
+      <div>
+        <h4>Formation</h4>
+        <a href="exercice1.html">Exercices — série 1</a>
+        <a href="exercice2.html">Exercices — série 2</a>
+        <a href="exercice3.html">Exercices — e-commerce</a>
+        <a href="examen.html">Examen final</a>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <form class="newsletter-form" id="newsletter-form">
+          <label for="newsletter-email" class="visually-hidden">Adresse e-mail</label>
+          <input type="email" id="newsletter-email" name="email" placeholder="votre@email.fr" required>
+          <button type="submit" class="btn btn-primary">OK</button>
+        </form>
+        <p class="newsletter-msg" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© Kop Store — site pédagogique, aucune vente réelle.</span>
+      <a href="#" data-reset-shop>Réinitialiser la boutique (panier, favoris, commande)</a>
+    </div>
+  </div>
+</footer>
+
+<script src="mes-tags.js"></script>
+</body>
+</html>
