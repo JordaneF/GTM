@@ -43,6 +43,8 @@ function versItem(x) {
     price: x.price,
     quantity: x.quantity || 1   // 1 par défaut
   };
+  }
+
 
    
 /* Vue d'un produit */
