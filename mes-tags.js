@@ -46,7 +46,7 @@ function versItem(x) {
   }
 
 
-   
+
 /* Vue d'un produit */
 shopHooks.viewItem = function (data) {
   dataLayer.push({ ecommerce: null });
@@ -59,7 +59,7 @@ shopHooks.viewItem = function (data) {
     }
   });
 };
-}
+
 
 /* 1. Le dictionnaire : vocabulaire de la boutique → vocabulaire GA4 */
 
